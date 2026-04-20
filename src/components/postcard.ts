@@ -21,16 +21,16 @@ export function postCard(post: any) {
     <h3 class="post-title">${post.title}</h3>
     <p class="post-body">${post.body || ''}</p>
     <div class="post-actions">
-        <span class="action-items">
+        <button class="action-items react-btn" data-id="${post.id}">
         <i class="fa-solid fa-hand-point-up"></i>
         <span>${post._count?.reactions || 0}</span>
-    </span>
+    </button>
     
-    <span class="action-items">
+    <button class="action-items">
         <i class="fa-solid fa-comment"></i>
         <span>${post._count?.comments || 0}</span>
-    </span>
+    </button>
    </div>
-</article>
+</article> 
     `;
 }

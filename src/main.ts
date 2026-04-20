@@ -4,5 +4,5 @@ import './css/login.css';
 import './css/feed.css';
 import './css/components.css';
 
-window.addEventListener('load', router);
+window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
