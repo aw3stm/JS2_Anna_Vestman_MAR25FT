@@ -1,0 +1,89 @@
+.topBar {
+  background: #222831;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.topBar button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #222831;
+  border-radius: 12px 6px 6px 12px;
+  border-left: 16px solid;
+  border-right: 2px solid;
+  border-top: 8px solid;
+  border-bottom: 1px solid;
+  padding: 16px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.post-card:nth-child(3n + 1) {
+  border-color: #ff3e9b;
+}
+
+.post-card:nth-child(3n + 2) {
+  border-color: #3a8b95;
+}
+
+.post-card:nth-child(3n + 3) {
+  border-color: #f1ff5e;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.post-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.action-items {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-items i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.action-items span {
+  font-size: 16px;
+  cursor: default;
+}

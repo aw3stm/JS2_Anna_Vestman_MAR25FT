@@ -1,18 +1,34 @@
 import { removeData } from '../utils/storage';
+import { getPosts } from '../api/posts';
+import { feedTemplate } from '../templates/feedTemplate';
+import { topBar } from '../components/topbar';
 
-export function renderFeed(container: HTMLDivElement) {
-  container.innerHTML = `
-    <h1>Welcome to your feed!</h1>
-        <p>You're logged in :)</p>
-        <button id="logoutBtn">Logout</button>
+export async function renderFeed(container: HTMLDivElement) {
+  container.innerHTML = `<p>Loading...</p>`;
+
+  try {
+    const posts = await getPosts();
+    container.innerHTML = `
+    ${topBar()}
+    <main class="feedContent">
+    ${feedTemplate(posts)}
+    </main>
+    
+        
+       
+        
+        
     `;
+    const btn = document.getElementById('logoutBtn');
 
-  const btn = document.getElementById('logoutBtn');
+    btn?.addEventListener('click', () => {
+      removeData('token');
+      removeData('profile');
 
-  btn?.addEventListener('click', () => {
-    removeData('token');
-    removeData('profile');
-
-    window.location.hash = '#/login';
-  });
+      window.location.hash = '#/login';
+    });
+  } catch (error) {
+    console.log(error);
+    container.innerHTML = `<p>Failed to load feed</p>`;
+  }
 }
