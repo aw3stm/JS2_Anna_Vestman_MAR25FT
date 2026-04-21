@@ -5,11 +5,17 @@ import { topBar } from '../components/topbar';
 import { postReaction } from '../api/reactions';
 import { renderProfile } from './profile';
 
-export async function renderFeed(container: HTMLDivElement) {
+export async function renderFeed(container: HTMLElement) {
   container.innerHTML = `<p>Loading...</p>`;
 
   container.addEventListener('click', async (event) => {
     const target = event.target as HTMLElement;
+
+    const homeBtn = target.closest('#rantr-home');
+    if (homeBtn) {
+      renderFeed(container);
+      return;
+    }
 
     const profileBtnClick = target.closest('#profile-btn');
     if (profileBtnClick) {

@@ -2,6 +2,7 @@ import { load } from '../utils/storage';
 import { usersProfile } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar } from '../components/topbar';
+import { renderFeed } from './feed';
 
 export async function renderProfile(container: HTMLElement) {
   const profileData = load('profile');
@@ -10,6 +11,17 @@ export async function renderProfile(container: HTMLElement) {
     container.innerHTML = `<p>Couldn't load your profile page. Please try again later.</p>`;
     return;
   }
+
+  container.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const homeBtn = target.closest('#rantr-home');
+
+    if (homeBtn) {
+      console.log('Clicked logo, back to start');
+      renderFeed(container);
+      return;
+    }
+  });
 
   container.innerHTML = `
     ${topBar()}
