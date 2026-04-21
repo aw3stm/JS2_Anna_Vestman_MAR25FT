@@ -3,6 +3,7 @@ import { getPosts } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar } from '../components/topbar';
 import { postReaction } from '../api/reactions';
+import { renderProfile } from './profile';
 
 export async function renderFeed(container: HTMLDivElement) {
   container.innerHTML = `<p>Loading...</p>`;
@@ -10,17 +11,34 @@ export async function renderFeed(container: HTMLDivElement) {
   container.addEventListener('click', async (event) => {
     const target = event.target as HTMLElement;
 
-    const btn = target.closest('.react-btn') as HTMLElement;
+    const profileBtnClick = target.closest('#profile-btn');
+    if (profileBtnClick) {
+      console.log('Works fine! Loading profile...');
+      renderProfile(container);
+      return;
+    }
+
+    const btn = target.closest('.react-btn') as HTMLButtonElement;
 
     if (!btn) return;
+    event.preventDefault();
+    if (btn.disabled) return;
 
     const postId = Number(btn.dataset.id);
     try {
+      btn.disabled = true;
       await postReaction(postId);
-      window.location.reload();
+
+      const likeCount = btn.querySelector('span');
+
+      if (likeCount) {
+        const currentCount = Number(likeCount.textContent || 0);
+        likeCount.textContent = (currentCount + 1).toString();
+      }
     } catch (error) {
-      console.error(error);
-      alert('Reactions is temporarily unavailable');
+      console.error('Failed to react', error);
+    } finally {
+      btn.disabled = false;
     }
   });
 
@@ -30,8 +48,7 @@ export async function renderFeed(container: HTMLDivElement) {
     ${topBar()}
     <main class="feedContent">
     ${feedTemplate(posts)}
-    </main>
-       
+    </main> 
     `;
     const btn = document.getElementById('logoutBtn');
 
