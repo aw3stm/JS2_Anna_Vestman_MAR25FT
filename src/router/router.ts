@@ -3,6 +3,7 @@ import { renderFeed } from '../pages/feed';
 import { load } from '../utils/storage.ts';
 import { renderProfile } from '../pages/profile.ts';
 import { renderCreatePost } from '../components/createPost.ts';
+import { renderRegister } from '../pages/register.ts';
 
 export function router() {
   const socialApp = document.getElementById('socialApp') as HTMLDivElement;
@@ -40,6 +41,14 @@ export function router() {
         return;
       }
       renderCreatePost(socialApp);
+      break;
+
+    case '#/register':
+      if (!load('token')) {
+        window.location.hash = '#/feed';
+        return;
+      }
+      renderRegister(socialApp);
       break;
 
     default:
