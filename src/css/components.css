@@ -19,6 +19,10 @@
   cursor: pointer;
 }
 
+.topBar img {
+  cursor: pointer;
+}
+
 .card-header {
   display: flex;
   align-items: center;

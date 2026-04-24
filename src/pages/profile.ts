@@ -3,6 +3,7 @@ import { usersProfile } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar } from '../components/topbar';
 import { renderFeed } from './feed';
+import { deletePost, updatePost } from '../api/posts';
 
 export async function renderProfile(container: HTMLElement) {
   const profileData = load('profile');
@@ -12,13 +13,56 @@ export async function renderProfile(container: HTMLElement) {
     return;
   }
 
-  container.addEventListener('click', (event) => {
+  container.addEventListener('click', async (event) => {
     const target = event.target as HTMLElement;
     const homeBtn = target.closest('#rantr-home');
-
     if (homeBtn) {
       console.log('Clicked logo, back to start');
       renderFeed(container);
+      return;
+    }
+
+    const editBtn = target.closest('.edit-btn') as HTMLButtonElement;
+    if (editBtn) {
+      const postId = Number(editBtn.dataset.id);
+      const postCard = editBtn.closest('.post-card');
+
+      const bodyElement = postCard?.querySelector('.post-body');
+      const currentBodyText = bodyElement?.textContent || '';
+
+      const newText = prompt('Edit your post', currentBodyText);
+
+      if (newText !== null && newText.trim() !== '' && newText !== currentBodyText) {
+        try {
+          editBtn.disabled = true;
+          await updatePost(postId, { body: newText });
+          if (bodyElement) {
+            bodyElement.textContent = newText;
+          }
+        } catch (error) {
+          console.error('Unable to update post', error);
+        } finally {
+          editBtn.disabled = false;
+        }
+      }
+      return;
+    }
+
+    const deleteBtn = target.closest('.delete-btn') as HTMLButtonElement;
+    if (deleteBtn) {
+      const postId = Number(deleteBtn.dataset.id);
+      const postCard = deleteBtn.closest('.post-card');
+
+      if (confirm('Are you sure you want to delete this post?')) {
+        try {
+          deleteBtn.disabled = true;
+          await deletePost(postId);
+          postCard?.remove();
+        } catch (error) {
+          console.error('Unable to delete post', error);
+          deleteBtn.disabled = false;
+        }
+      }
       return;
     }
   });

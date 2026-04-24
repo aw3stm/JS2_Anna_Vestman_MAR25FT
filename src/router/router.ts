@@ -1,6 +1,8 @@
 import { renderLogin } from '../pages/login';
 import { renderFeed } from '../pages/feed';
 import { load } from '../utils/storage.ts';
+import { renderProfile } from '../pages/profile.ts';
+import { renderCreatePost } from '../components/createPost.ts';
 
 export function router() {
   const socialApp = document.getElementById('socialApp') as HTMLDivElement;
@@ -13,7 +15,6 @@ export function router() {
         window.location.hash = '#/login';
         return;
       }
-
       renderFeed(socialApp);
       break;
 
@@ -23,6 +24,22 @@ export function router() {
         return;
       }
       renderLogin(socialApp);
+      break;
+
+    case '#/profile':
+      if (!load('token')) {
+        window.location.hash = '#/login';
+        return;
+      }
+      renderProfile(socialApp);
+      break;
+
+    case '#/create':
+      if (!load('token')) {
+        window.location.hash = '#/login';
+        return;
+      }
+      renderCreatePost(socialApp);
       break;
 
     default:

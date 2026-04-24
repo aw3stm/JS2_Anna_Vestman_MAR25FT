@@ -11,3 +11,34 @@ export async function usersProfile(username: string) {
   );
   return result.data;
 }
+
+interface createPostData {
+  title?: string;
+  body: string;
+  media?: {
+    url: string;
+    alt: string;
+  };
+}
+
+export async function newPost(postData: createPostData) {
+  const result = await apiFetch('/social/posts', {
+    method: 'POST',
+    body: JSON.stringify(postData),
+  });
+  return result.data;
+}
+
+export async function deletePost(postId: number) {
+  await apiFetch(`/social/posts/${postId}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function updatePost(postId: number, postData: any) {
+  const result = await apiFetch(`/social/posts/${postId}`, {
+    method: 'PUT',
+    body: JSON.stringify(postData),
+  });
+  return result.data;
+}
