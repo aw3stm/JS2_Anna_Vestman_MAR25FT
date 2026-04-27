@@ -4,11 +4,12 @@ import { feedTemplate } from '../templates/feedTemplate';
 import { topBar } from '../components/topbar';
 import { postReaction } from '../api/reactions';
 import { deletePost, updatePost } from '../api/posts';
+import { footerNav } from '../components/footernav';
 
 export async function renderFeed(container: HTMLElement) {
   container.innerHTML = `<p>Loading...</p>`;
 
-  container.addEventListener('click', async (event) => {
+  container.onclick = async (event) => {
     const target = event.target as HTMLElement;
 
     const createBtn = target.closest('#create-post');
@@ -94,7 +95,7 @@ export async function renderFeed(container: HTMLElement) {
     } finally {
       btn.disabled = false;
     }
-  });
+  };
 
   try {
     const posts = await getPosts();
@@ -103,6 +104,7 @@ export async function renderFeed(container: HTMLElement) {
     <main class="feedContent">
     ${feedTemplate(posts)}
     </main> 
+    ${footerNav()};
     `;
     const btn = document.getElementById('logoutBtn');
 

@@ -1,6 +1,6 @@
 import { topBar } from './topbar';
 import { newPost } from '../api/posts';
-import { renderFeed } from '../pages/feed';
+import { footerNav } from './footernav';
 
 export function renderCreatePost(container: HTMLElement) {
   container.innerHTML = `
@@ -17,6 +17,7 @@ export function renderCreatePost(container: HTMLElement) {
     <button type="submit" id="submit-btn">Publish</button>
     </form>
     </main>
+    ${footerNav()}
     `;
 
   const form = container.querySelector('#create-post-form') as HTMLFormElement;
@@ -29,10 +30,10 @@ export function renderCreatePost(container: HTMLElement) {
     const submitBtn = container.querySelector('#submit-btn') as HTMLButtonElement;
 
     const postData: any = {
-      body: bodyInput.value,
+      title: titleInput.value.trim(),
     };
-    if (titleInput.value) {
-      postData.title = titleInput.value;
+    if (bodyInput.value.trim() !== '') {
+      postData.body = bodyInput.value.trim();
     }
     if (mediaInput.value) {
       postData.media = {

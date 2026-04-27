@@ -2,8 +2,8 @@ import { load } from '../utils/storage';
 import { usersProfile } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar } from '../components/topbar';
-import { renderFeed } from './feed';
 import { deletePost, updatePost } from '../api/posts';
+import { footerNav } from '../components/footernav';
 
 export async function renderProfile(container: HTMLElement) {
   const profileData = load('profile');
@@ -13,12 +13,11 @@ export async function renderProfile(container: HTMLElement) {
     return;
   }
 
-  container.addEventListener('click', async (event) => {
+  container.onclick = async (event) => {
     const target = event.target as HTMLElement;
     const homeBtn = target.closest('#rantr-home');
     if (homeBtn) {
       console.log('Clicked logo, back to start');
-      renderFeed(container);
       return;
     }
 
@@ -65,7 +64,7 @@ export async function renderProfile(container: HTMLElement) {
       }
       return;
     }
-  });
+  };
 
   container.innerHTML = `
     ${topBar()}
@@ -75,6 +74,7 @@ export async function renderProfile(container: HTMLElement) {
     </div>
     <p class="loader">Loading your posts...</p>
     </main>
+    ${footerNav()}
     `;
 
   const mainContent = container.querySelector('#main-content') as HTMLElement;

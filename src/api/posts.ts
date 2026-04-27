@@ -42,3 +42,10 @@ export async function updatePost(postId: number, postData: any) {
   });
   return result.data;
 }
+
+export async function postSearch(query: string) {
+  const result = await apiFetch(
+    `/social/posts/search?q=${query}&_author=true&_reactions=true&_comments=true`,
+  );
+  return result.data;
+}

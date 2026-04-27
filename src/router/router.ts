@@ -4,6 +4,7 @@ import { load } from '../utils/storage.ts';
 import { renderProfile } from '../pages/profile.ts';
 import { renderCreatePost } from '../components/createPost.ts';
 import { renderRegister } from '../pages/register.ts';
+import { renderSearch } from '../pages/search.ts';
 
 export function router() {
   const socialApp = document.getElementById('socialApp') as HTMLDivElement;
@@ -49,6 +50,14 @@ export function router() {
         return;
       }
       renderRegister(socialApp);
+      break;
+
+    case '#/search':
+      if (!load('token')) {
+        window.location.hash = '#/login';
+        return;
+      }
+      renderSearch(socialApp);
       break;
 
     default:
