@@ -1,0 +1,30 @@
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: #d9d9d9;
+  border-top: 14px solid #fffde8;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  color: #232830;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-item:hover {
+  color: #ff3e9b;
+}

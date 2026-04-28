@@ -13,7 +13,6 @@ export function footerNav() {
     <a href="#/profile" class="footer-item" aria-label="Profile">
     <i class="fa-regular fa-user"></i></a>
 
-
     </div>
     `;
 }

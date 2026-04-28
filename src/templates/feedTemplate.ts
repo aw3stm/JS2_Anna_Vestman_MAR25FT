@@ -3,7 +3,7 @@ import { feedHeader } from '../components/feedHeader';
 
 export function feedTemplate(posts: any[], showHeader: boolean = true) {
   return `
-    <section class="publicFeed">
+    <section class="feedContent">
     ${showHeader ? feedHeader() : ''}
    
     ${posts.map((post) => postCard(post)).join('')}

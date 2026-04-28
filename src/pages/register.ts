@@ -4,24 +4,36 @@ export function renderRegister(container: HTMLElement) {
   container.innerHTML = `
     <main class="auth-page">
     <div class="login-container">
-    <h2>Create an account</h2>
+
+    <div class="main-content">
+    <img src="/images/Posts/Rantr.svg" class="icon" alt="Text logo with app name Rantr" />
+    <h1>Create account</h1>
 
     <form id="register-form" class="auth-form">
+    <div class="input-group">
     <label for="reg-name">Username</label>
     <input type="text" id="reg-name" placeholder="Name (No spaces)" required/>
-
-    <label for="reg-email">Email</label>
-    <input type="email" id="reg-mail" placeholder="Email (@stud.noroff.no)" required/>
-
-     <label for="reg-password">Password</label>
-    <input type="password" id="reg-password" placeholder="Min 8 characters" required/>
-
-    <button type="submit" id="register-btn" class="submit-btn">Register</button>
-    </form>
-    
-    <p class="auth-switch">Already have an account? <a href="#/login">Log in here</a></p>
-
     </div>
+
+    <div class="input-group">
+    <label for="reg-email">Email</label>
+    <input type="email" id="reg-email" placeholder="Email (@stud.noroff.no)" required/>
+    </div>
+
+
+    <div class="input-group">
+    <label for="reg-password">Password</label>
+    <input type="password" id="reg-password" placeholder="Min 8 characters" required/>
+    </div>
+
+    <div class="login-link">
+    <a href="#/login">Sign in here</a>
+      </div>
+    
+    <button type="submit" id="register-btn" class="submit-btn">Register</button>
+        </form>
+      </div>
+      </div>
     </main>
     `;
 
@@ -30,7 +42,7 @@ export function renderRegister(container: HTMLElement) {
     event.preventDefault();
 
     const nameInput = container.querySelector('#reg-name') as HTMLInputElement;
-    const emailInput = container.querySelector('#reg-mail') as HTMLInputElement;
+    const emailInput = container.querySelector('#reg-email') as HTMLInputElement;
     const passwordInput = container.querySelector('#reg-password') as HTMLInputElement;
     const registerBtn = container.querySelector('#register-btn') as HTMLButtonElement;
 

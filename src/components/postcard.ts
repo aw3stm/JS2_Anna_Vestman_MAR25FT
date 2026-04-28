@@ -6,7 +6,7 @@ export function postCard(post: any) {
   const isAuthor = myUsername && post.author && myUsername === post.author.name;
   const authorActions = isAuthor
     ? `
-  <div class="author-actions">
+  <div class="edit-actions">
   <button class="edit-btn" data-id="${post.id}" title="Edit post"><i class="fa-solid fa-pen"></i></button>
   <button class="delete-btn" data-id="${post.id}" title="Delete post"><i class="fa-solid fa-trash"></i></button>
   </div>
@@ -17,7 +17,6 @@ export function postCard(post: any) {
     <div class="card-header">
     <div class="user-info">
     <img src="${post.author?.avatar?.url || '/images/Posts/circle-user-solid-full.svg'}" alt="default user image" class="user-avatar"/>
-    
     <span class="post-name"> ${post.author?.name || 'Unknown'}</span>
     </div>
     ${authorActions}

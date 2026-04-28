@@ -1,4 +1,4 @@
-import { topBar } from './topbar';
+import { topBar, topbarEvents } from './topbar';
 import { newPost } from '../api/posts';
 import { footerNav } from './footernav';
 
@@ -7,6 +7,7 @@ export function renderCreatePost(container: HTMLElement) {
     ${topBar()}
     <main id="main-content" class="feedContent createPost">
     <div class="profile-header">
+    <h1 class="feed-title">Don't hold back. We're all judging anyway.</h1>
     <h2>New post</h2>
     </div>
     
@@ -19,6 +20,7 @@ export function renderCreatePost(container: HTMLElement) {
     </main>
     ${footerNav()}
     `;
+  topbarEvents();
 
   const form = container.querySelector('#create-post-form') as HTMLFormElement;
   form?.addEventListener('submit', async (event) => {

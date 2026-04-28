@@ -45,7 +45,7 @@ export function router() {
       break;
 
     case '#/register':
-      if (!load('token')) {
+      if (load('token')) {
         window.location.hash = '#/feed';
         return;
       }

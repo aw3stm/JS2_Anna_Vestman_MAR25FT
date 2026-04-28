@@ -1,9 +1,10 @@
 import { load } from '../utils/storage';
 import { usersProfile } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
-import { topBar } from '../components/topbar';
+import { topBar, topbarEvents } from '../components/topbar';
 import { deletePost, updatePost } from '../api/posts';
 import { footerNav } from '../components/footernav';
+import { postReaction } from '../api/reactions';
 
 export async function renderProfile(container: HTMLElement) {
   const profileData = load('profile');
@@ -15,11 +16,6 @@ export async function renderProfile(container: HTMLElement) {
 
   container.onclick = async (event) => {
     const target = event.target as HTMLElement;
-    const homeBtn = target.closest('#rantr-home');
-    if (homeBtn) {
-      console.log('Clicked logo, back to start');
-      return;
-    }
 
     const editBtn = target.closest('.edit-btn') as HTMLButtonElement;
     if (editBtn) {
@@ -64,6 +60,28 @@ export async function renderProfile(container: HTMLElement) {
       }
       return;
     }
+    const btn = target.closest('.react-btn') as HTMLButtonElement;
+    if (btn) {
+      event.preventDefault();
+      if (btn.disabled) return;
+
+      const postId = Number(btn.dataset.id);
+      try {
+        btn.disabled = true;
+        await postReaction(postId);
+
+        const likeCount = btn.querySelector('span');
+        if (likeCount) {
+          const currentCount = Number(likeCount.textContent || 0);
+          likeCount.textContent = (currentCount + 1).toString();
+        }
+      } catch (error) {
+        console.error('Failed to react', error);
+      } finally {
+        btn.disabled = false;
+      }
+      return;
+    }
   };
 
   container.innerHTML = `
@@ -76,13 +94,14 @@ export async function renderProfile(container: HTMLElement) {
     </main>
     ${footerNav()}
     `;
+  topbarEvents();
 
   const mainContent = container.querySelector('#main-content') as HTMLElement;
-
   try {
     const myPosts = await usersProfile(profileData.name);
     mainContent.innerHTML = `
         <div class="profile-header">
+        <i id="profile-avatar" class="fa-solid fa-user-circle"></i>
         <h2>${profileData.name}</h2>
         </div>
         ${feedTemplate(myPosts, false)}

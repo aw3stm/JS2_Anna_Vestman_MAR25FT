@@ -1,7 +1,6 @@
-import { removeData } from '../utils/storage';
 import { getPosts } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
-import { topBar } from '../components/topbar';
+import { topBar, topbarEvents } from '../components/topbar';
 import { postReaction } from '../api/reactions';
 import { deletePost, updatePost } from '../api/posts';
 import { footerNav } from '../components/footernav';
@@ -11,24 +10,6 @@ export async function renderFeed(container: HTMLElement) {
 
   container.onclick = async (event) => {
     const target = event.target as HTMLElement;
-
-    const createBtn = target.closest('#create-post');
-    if (createBtn) {
-      window.location.hash = '#/create';
-      return;
-    }
-
-    const homeBtn = target.closest('#rantr-home');
-    if (homeBtn) {
-      window.location.hash = '#/feed';
-      return;
-    }
-
-    const profileBtnClick = target.closest('#profile-btn');
-    if (profileBtnClick) {
-      window.location.hash = '#/profile';
-      return;
-    }
 
     const editBtn = target.closest('.edit-btn') as HTMLButtonElement;
     if (editBtn) {
@@ -104,16 +85,9 @@ export async function renderFeed(container: HTMLElement) {
     <main class="feedContent">
     ${feedTemplate(posts)}
     </main> 
-    ${footerNav()};
+    ${footerNav()}
     `;
-    const btn = document.getElementById('logoutBtn');
-
-    btn?.addEventListener('click', () => {
-      removeData('token');
-      removeData('profile');
-
-      window.location.hash = '#/login';
-    });
+    topbarEvents();
   } catch (error) {
     console.log(error);
     container.innerHTML = `<p>Failed to load feed</p>`;
