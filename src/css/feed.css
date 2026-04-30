@@ -12,6 +12,10 @@
   margin: 0 0 6px;
 }
 
+.welcome-text span {
+  color: #ff3e9b;
+}
+
 .profile-header {
   display: flex;
   align-items: center;

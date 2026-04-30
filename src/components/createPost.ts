@@ -1,6 +1,6 @@
 import { topBar, topbarEvents } from './topbar';
 import { newPost } from '../api/posts';
-import { footerNav } from './footernav';
+import { footerNav } from './footerNav';
 
 export function renderCreatePost(container: HTMLElement) {
   container.innerHTML = `

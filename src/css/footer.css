@@ -8,8 +8,8 @@
   left: 0;
   right: 0;
   height: 80px;
-  background-color: #d9d9d9;
-  border-top: 14px solid #fffde8;
+  background-color: #232830;
+  border-top: 8px solid #fffacd;
 }
 
 .footer-item {
@@ -18,7 +18,7 @@
   justify-content: center;
   flex: 1;
   height: 100%;
-  color: #232830;
+  color: #fff;
   font-size: 24px;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -27,4 +27,30 @@
 
 .footer-item:hover {
   color: #ff3e9b;
+}
+
+@media (min-width: 768px) {
+  .footer-nav {
+    flex-direction: column;
+    justify-content: center;
+    width: 80px;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    border-top: none;
+    border-right: 4px solid #fffacd;
+  }
+
+  .footer-item {
+    flex: none;
+    height: auto;
+    width: 100%;
+    padding: 15px 0;
+  }
+
+  .topBar {
+    left: 80px;
+    width: calc(100% - 80px);
+  }
 }

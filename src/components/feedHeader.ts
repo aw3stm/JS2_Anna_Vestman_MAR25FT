@@ -7,7 +7,7 @@ export function feedHeader() {
 
   return `
 <div class="welcome-message">
-<p class="welcome-text">Welcome back, ${name}!</p>
+<p class="welcome-text">Welcome back, <span>${name}!</span></p>
 </div>
 `;
 }

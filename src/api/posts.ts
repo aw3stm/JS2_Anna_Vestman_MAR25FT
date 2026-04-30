@@ -49,3 +49,21 @@ export async function postSearch(query: string) {
   );
   return result.data;
 }
+
+export async function followUser(name: string) {
+  const response = await apiFetch(`/social/profiles/${name}/follow`, {
+    method: 'PUT',
+  });
+  return response;
+}
+
+export async function unfollowUser(name: string) {
+  const response = await apiFetch(`/social/profiles/${name}/unfollow`, {
+    method: 'PUT',
+  });
+  return response;
+}
+
+export async function myProfile(name: string) {
+  return await apiFetch(`/social/profiles/${name}?_following=true`);
+}

@@ -1,5 +1,5 @@
-import { topBar } from '../components/topbar';
-import { footerNav } from '../components/footernav';
+import { topBar, topbarEvents } from '../components/topbar';
+import { footerNav } from '../components/footerNav';
 import { feedTemplate } from '../templates/feedTemplate';
 import { postSearch } from '../api/posts';
 
@@ -21,6 +21,7 @@ export function renderSearch(container: HTMLElement) {
     </main>
     ${footerNav()}
     `;
+  topbarEvents();
 
   const form = container.querySelector('#search-form') as HTMLFormElement;
   const resultsContainer = container.querySelector('#search-result') as HTMLElement;

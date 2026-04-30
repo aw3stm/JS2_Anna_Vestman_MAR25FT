@@ -5,3 +5,18 @@ export async function postReaction(postId: number) {
     method: 'PUT',
   });
 }
+
+export async function postComment(postId: number, textComment: string) {
+  const response = await apiFetch(`/social/posts/${postId}/comment`, {
+    method: 'POST',
+    body: JSON.stringify({ body: textComment }),
+  });
+
+  return response;
+}
+
+export async function deleteComment(postId: number, commentId: number) {
+  await apiFetch(`/social/posts/${postId}/comment/${commentId}`, {
+    method: 'DELETE',
+  });
+}
