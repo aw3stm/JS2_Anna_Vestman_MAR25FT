@@ -84,9 +84,11 @@ export function postCard(post: any) {
         `
         : ''
     }
-
+    <a href="#/post?id=${post.id}" class="post-link">
     <h3 class="post-title">${post.title}</h3>
+    </a>
     <p class="post-body">${post.body || ''}</p>
+
     <div class="post-actions">
         <button class="action-items react-btn" data-id="${post.id}">
         <i class="fa-solid fa-hand-point-up"></i>

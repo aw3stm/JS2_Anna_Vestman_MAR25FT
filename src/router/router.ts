@@ -5,11 +5,13 @@ import { renderProfile } from '../pages/profile.ts';
 import { renderCreatePost } from '../components/createPost.ts';
 import { renderRegister } from '../pages/register.ts';
 import { renderSearch } from '../pages/search.ts';
+import { renderSinglePost } from '../pages/singlepost.ts';
 
 export function router() {
   const socialApp = document.getElementById('socialApp') as HTMLDivElement;
   if (!socialApp) return;
-  const path = window.location.hash;
+  const hash = window.location.hash || '#/login';
+  const path = hash.split('?')[0];
 
   switch (path) {
     case '#/feed':
@@ -58,6 +60,14 @@ export function router() {
         return;
       }
       renderSearch(socialApp);
+      break;
+
+    case '#/post':
+      if (!load('token')) {
+        window.location.hash = '#/login';
+        return;
+      }
+      renderSinglePost(socialApp);
       break;
 
     default:

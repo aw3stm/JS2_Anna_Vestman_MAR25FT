@@ -50,6 +50,13 @@ export async function postSearch(query: string) {
   return result.data;
 }
 
+export async function singlePost(postId: string | number) {
+  const result = await apiFetch(
+    `/social/posts/${postId}?_author=true&_reactions=true&_comments=true`,
+  );
+  return result.data;
+}
+
 export async function followUser(name: string) {
   const response = await apiFetch(`/social/profiles/${name}/follow`, {
     method: 'PUT',
