@@ -1,7 +1,7 @@
 import { getPosts, myProfile } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar, topbarEvents } from '../components/topbar';
-import { footerNav } from '../components/footerNav';
+import { footerNav } from '../components/temp';
 import { postEvents } from '../components/postEvents';
 import { load, save } from '../utils/storage';
 

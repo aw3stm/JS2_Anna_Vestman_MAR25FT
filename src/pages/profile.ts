@@ -2,7 +2,7 @@ import { load } from '../utils/storage';
 import { usersProfile } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar, topbarEvents } from '../components/topbar';
-import { footerNav } from '../components/footerNav';
+import { footerNav } from '../components/temp';
 import { postEvents } from '../components/postEvents';
 
 export async function renderProfile(container: HTMLElement) {

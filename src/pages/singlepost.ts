@@ -1,7 +1,7 @@
 import { singlePost } from '../api/posts';
 import { postCard } from '../components/postcard';
 import { topBar, topbarEvents } from '../components/topbar';
-import { footerNav } from '../components/footerNav';
+import { footerNav } from '../components/temp';
 import { postEvents } from '../components/postEvents';
 
 export async function renderSinglePost(container: HTMLElement) {
