@@ -1,5 +1,5 @@
 import { topBar, topbarEvents } from '../components/topbar';
-import { footerNav } from '../components/temp';
+import { footerNav } from '../components/footerNav';
 import { feedTemplate } from '../templates/feedTemplate';
 import { postSearch } from '../api/posts';
 
