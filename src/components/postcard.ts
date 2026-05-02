@@ -55,7 +55,7 @@ export function postCard(post: any) {
       <div class="post-Comments">
       ${existingComments}
       <form class="comment-form" data-id="${post.id}">
-      <input type="text" class="comment-input" placeholder="Something you wanna add?" />
+      <input type="text" class="comment-input" placeholder="Comment on post"> 
       <button type="submit" class="send-comment" title="Post comment"><i class="fa-solid fa-paper-plane"></i></button>
       </form>
       </div>

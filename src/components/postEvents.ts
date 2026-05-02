@@ -5,11 +5,13 @@ import { postReaction, postComment, deleteComment } from '../api/reactions';
 import { load, save } from '../utils/storage';
 
 export function postEvents(container: HTMLElement) {
+  if (container.dataset.eventsBound === 'true') {
+    return;
+  }
+  container.dataset.eventsBound = 'true';
+
   container.addEventListener('click', async (event) => {
     const target = event.target as HTMLElement;
-
-    console.log('Clicked:', target);
-    console.log('Closest button is:', target.closest('button'));
 
     // --- EDIT POST ---
     const editBtn = target.closest('.edit-btn') as HTMLButtonElement;

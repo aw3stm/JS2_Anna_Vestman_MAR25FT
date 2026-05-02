@@ -5,7 +5,7 @@ export function footerNav() {
     <i class="fa-solid fa-house"></i></a>
 
     <a href="#/create" class="footer-item" aria-label="Messages">
-    <i class="fa-solid fa-comment"></i></a>
+    <i class="fa-solid fa-plus"></i></a>
 
     <a href="#/search" class="footer-item" aria-label="Search">
     <i class="fa-solid fa-magnifying-glass"></i></a>

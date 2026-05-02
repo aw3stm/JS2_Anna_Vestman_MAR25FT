@@ -1,5 +1,13 @@
 const API_BASE_URL = 'https://v2.api.noroff.dev';
 
+/**
+ *
+ * @param {string} endpoint API endpoint to call
+ * @param {RequestInit} [options={}] Optional fetch config (method, headers, body).
+ * @returns {Promise<any>} The parsed JSON response data, or empty object if status 204.
+ * @throws {Error} Throws error if status is not ok.
+ */
+
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   const rawToken = localStorage.getItem('token');
   const token = rawToken ? JSON.parse(rawToken) : null;
