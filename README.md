@@ -45,9 +45,6 @@ npm install
 
 4. Start dev server:
 npm run dev
-
-**Author**
-Anna Vestman
-
-
 ```
+##Author
+Anna Vestman
