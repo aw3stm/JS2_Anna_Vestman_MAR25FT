@@ -1,5 +1,7 @@
 import { load } from '../utils/storage';
 
+// Welcome message to user
+
 export function feedHeader() {
   const profile = load('profile');
 

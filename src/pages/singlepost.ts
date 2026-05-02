@@ -32,7 +32,7 @@ export async function renderSinglePost(container: HTMLElement) {
     const post = await singlePost(postId);
     mainContent.innerHTML = `
     <div class="profile-header">
-    <a href="#/feed" class="go-back">
+    <a href="javascript:history.back()" class="go-back">
     <i class="fa-solid fa-arrow-left"></i> Back
     </a></div>
     ${postCard(post)}

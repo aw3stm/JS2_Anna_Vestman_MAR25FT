@@ -11,7 +11,7 @@ export function renderCreatePost(container: HTMLElement) {
     <h2>New post</h2>
     </div>
     
-    <form id="create-post-form" class="create-form">
+    <form id="create-post-form" class="create-form" novalidate>
     <textarea id="post-title" placeholder="Title" rows="1" required></textarea>
     <textarea id="post-body" placeholder="What's on your mind?" rows="5"></textarea>
     <input type="url" id="post-media" placeholder="Media url"/>

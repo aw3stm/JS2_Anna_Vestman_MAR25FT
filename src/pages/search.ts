@@ -11,8 +11,8 @@ export function renderSearch(container: HTMLElement) {
     <h2>Search posts</h2>
     </div>
 
-    <form id="search-form" class="create-form">
-    <input type="text" id="search-input" placeholder="Search for users or posts" required/>
+    <form id="search-form" class="create-form" novalidate>
+    <input type="text" id="search-input" placeholder="Search for posts" required/>
     <button type="submit" id="search-btn" class="submit-btn">Search</button>
     </form>
 

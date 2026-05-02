@@ -18,21 +18,51 @@ export function postEvents(container: HTMLElement) {
     if (editBtn) {
       const postId = Number(editBtn.dataset.id);
       const postCard = editBtn.closest('.post-card');
-      const bodyElement = postCard?.querySelector('.post-body');
-      const currentBodyText = bodyElement?.textContent || '';
-      const newText = prompt('Edit your post', currentBodyText);
+      const bodyElement = postCard?.querySelector('.post-body') as HTMLElement;
+      if (bodyElement.querySelector('.edit-textarea')) return;
 
-      if (newText !== null && newText.trim() !== '' && newText !== currentBodyText) {
+      const currentBodyText = bodyElement?.textContent || '';
+      bodyElement.innerHTML = `
+        <textarea class="edit-textarea">${currentBodyText}</textarea>
+        <div class="edit-actions">
+            <button class="save-edit-btn">Save</button>
+            <button class="cancel-edit-btn">Cancel</button>
+        </div>
+      `;
+
+      const textarea = bodyElement.querySelector('.edit-textarea') as HTMLTextAreaElement;
+      const saveBtn = bodyElement.querySelector('.save-edit-btn') as HTMLButtonElement;
+      const cancelBtn = bodyElement.querySelector('.cancel-edit-btn') as HTMLButtonElement;
+
+      textarea.focus();
+
+      cancelBtn.addEventListener('click', () => {
+        bodyElement.textContent = currentBodyText;
+      });
+
+      saveBtn.addEventListener('click', async () => {
+        const newText = textarea.value.trim();
+
+        if (!newText || newText === currentBodyText) {
+          bodyElement.textContent = currentBodyText;
+          return;
+        }
+
         try {
-          editBtn.disabled = true;
+          saveBtn.disabled = true;
+          saveBtn.textContent = 'Saving...';
+
           await updatePost(postId, { body: newText });
-          if (bodyElement) bodyElement.textContent = newText;
+
+          bodyElement.textContent = newText;
         } catch (error) {
           console.error('Unable to update post', error);
-        } finally {
-          editBtn.disabled = false;
+          alert('Failed to save post. Please try again.');
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save';
         }
-      }
+      });
+
       return;
     }
 
@@ -62,14 +92,23 @@ export function postEvents(container: HTMLElement) {
       if (btn.disabled) return;
 
       const postId = Number(btn.dataset.id);
+      const isLiked = btn.classList.contains('liked');
+      const likeCount = btn.querySelector('span');
+      let currentCount = Number(likeCount?.textContent || 0);
+
       try {
         btn.disabled = true;
-        await postReaction(postId);
-
-        const likeCount = btn.querySelector('span');
-        if (likeCount) {
-          const currentCount = Number(likeCount.textContent || 0);
-          likeCount.textContent = (currentCount + 1).toString();
+        if (isLiked) {
+          btn.classList.remove('liked');
+          if (likeCount) {
+            likeCount.textContent = (currentCount - 1).toString();
+          }
+        } else {
+          await postReaction(postId);
+          btn.classList.add('liked');
+          if (likeCount) {
+            likeCount.textContent = (currentCount + 1).toString();
+          }
         }
       } catch (error) {
         console.error('Failed to react', error);

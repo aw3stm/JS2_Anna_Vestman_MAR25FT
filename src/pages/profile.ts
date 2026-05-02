@@ -1,5 +1,5 @@
 import { load } from '../utils/storage';
-import { usersProfile } from '../api/posts';
+import { usersProfile, followUser, unfollowUser } from '../api/posts';
 import { feedTemplate } from '../templates/feedTemplate';
 import { topBar, topbarEvents } from '../components/topbar';
 import { footerNav } from '../components/footerNav';
@@ -34,19 +34,58 @@ export async function renderProfile(container: HTMLElement) {
   try {
     const userPost = await usersProfile(targetName);
     const myProfile = targetName === profileData?.name;
+    const bioInfo = myProfile
+      ? profileData?.bio || 'This user prefers privacy'
+      : userPost[0]?.author?.bio || 'This user prefers privacy';
     const backBtn = !myProfile
-      ? `<a href="#/feed" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to feed</a>`
+      ? `<a href="javascript:history.back()" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back </a>`
       : '';
 
+      const followNames = profileData?.following || [];
+    const isAlreadyFollowing = followNames.some(
+      (f: any) => f.name.toLowerCase() === targetName.toLowerCase()
+    );
+
+    
+    const followBtn = !myProfile
+      ? `<button id="profile-follow-btn" class="follow-btn ${isAlreadyFollowing ? 'following' : ''}" data-name="${targetName}">
+          ${isAlreadyFollowing ? 'Unfollow' : 'Follow'}
+         </button>`
+      : '';
+   
     mainContent.innerHTML = `
+    ${backBtn}
+    <div class="profile-top">
         <div class="profile-header">
         <i id="profile-avatar" class="fa-solid fa-user-circle"></i>
         <h2>${targetName}</h2>
-        ${backBtn}
         </div>
+        <div class="follow-btn-div">
+        ${followBtn}
+        </div>
+        </div>
+        <div class="profile-bio-text">
+        <p class="profile-bio">${bioInfo}</p>
+        
+        </div>
+        
+        <div class="profile-grid">
         ${feedTemplate(userPost, false)}
+        </div>
         `;
     postEvents(container);
+
+    const profileFollowBtn = document.querySelector('#profile-follow');
+    if (profileFollowBtn) {
+      profileFollowBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const btn = e.currentTarget as HTMLButtonElement;
+        
+    
+        btn.innerHTML = `<i class="fa-solid fa-user-check"></i> Following`;
+       
+      });
+    }
   } catch (error) {
     console.error('Failed to load profile posts', error);
     mainContent.innerHTML = `

@@ -140,6 +140,26 @@
   gap: 14px;
 }
 
+.react-btn {
+  transition:
+    color 0.3.s ease,
+    transform 0.3s ease;
+}
+
+.react-btn:hover {
+  color: #ff3e9b;
+}
+
+.react-btn.liked i,
+.react-btn.liked span {
+  color: #ff3e9b;
+  font-weight: 700;
+}
+
+.react-btn.liked i {
+  transform: scale(1.1);
+}
+
 .action-items {
   display: flex;
   align-items: center;

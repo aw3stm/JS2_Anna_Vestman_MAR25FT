@@ -79,10 +79,12 @@ export function postCard(post: any) {
     ${
       post.media?.url
         ? `
+        <a href="#/post?id=${post.id}" class="img-link">
         <img src="${post.media.url}" 
         alt="${post.media.alt || ''}"
         class="post-img" 
         />
+        </a>
         `
         : ''
     }
