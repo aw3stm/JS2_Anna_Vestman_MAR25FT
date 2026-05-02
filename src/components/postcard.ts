@@ -65,8 +65,10 @@ export function postCard(post: any) {
     <article class="post-card">
     <div class="card-header">
     <div class="user-info">
+    <a href="#/profile?name=${post.author?.name}">
     <img src="${post.author?.avatar?.url || '/images/Posts/circle-user-solid-full.svg'}" alt="default user image" class="user-avatar"/>
     <span class="post-name"> ${post.author?.name || 'Unknown'}</span>
+    </a>
     </div>
     <div class="user-info-follow">
     ${followBtnOnCard}
