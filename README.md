@@ -2,7 +2,7 @@
 
 A social media web app built as a course assignment for Noroff. It interacts with Noroff Social API, allowing users to register, log in, interact with others and manage their own profile.
 
-## Live Demo [View the live application](https://app.netlify.com/projects/regal-cajeta-9bc1c9/deploys/69f6173aecbd5fd3a8e12aef)
+## Live Demo [View the live application](Link here)
 
 ## Features
 
@@ -45,9 +45,6 @@ npm install
 
 4. Start dev server:
 npm run dev
-
-**Author**
-Anna Vestman
-
-
 ```
+## Author
+Anna Vestman
