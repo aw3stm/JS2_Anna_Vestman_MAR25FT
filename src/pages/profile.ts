@@ -41,18 +41,17 @@ export async function renderProfile(container: HTMLElement) {
       ? `<a href="javascript:history.back()" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back </a>`
       : '';
 
-      const followNames = profileData?.following || [];
+    const followNames = profileData?.following || [];
     const isAlreadyFollowing = followNames.some(
-      (f: any) => f.name.toLowerCase() === targetName.toLowerCase()
+      (f: any) => f.name.toLowerCase() === targetName.toLowerCase(),
     );
 
-    
     const followBtn = !myProfile
       ? `<button id="profile-follow-btn" class="follow-btn ${isAlreadyFollowing ? 'following' : ''}" data-name="${targetName}">
           ${isAlreadyFollowing ? 'Unfollow' : 'Follow'}
          </button>`
       : '';
-   
+
     mainContent.innerHTML = `
     ${backBtn}
     <div class="profile-top">
@@ -75,15 +74,36 @@ export async function renderProfile(container: HTMLElement) {
         `;
     postEvents(container);
 
-    const profileFollowBtn = document.querySelector('#profile-follow');
+    const profileFollowBtn = document.querySelector('.follow-btn') as HTMLButtonElement;
     if (profileFollowBtn) {
       profileFollowBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         const btn = e.currentTarget as HTMLButtonElement;
-        
-    
-        btn.innerHTML = `<i class="fa-solid fa-user-check"></i> Following`;
-       
+
+        const nameToFollow = btn.dataset.name;
+        if (!nameToFollow) return;
+
+        const currentlyFollowing = btn.classList.contains('following');
+
+        btn.disabled = true;
+
+        try {
+          if (currentlyFollowing) {
+            await unfollowUser(nameToFollow);
+            btn.classList.remove('following');
+            btn.innerText = 'Follow';
+          } else {
+            await followUser(nameToFollow);
+            btn.classList.add('following');
+
+            btn.innerHTML = `<i class="fa-solid fa-user-check"></i> Following`;
+          }
+        } catch (error) {
+          console.error('Failed to toggle follow status', error);
+          alert('Could not update follow status. Please try again.');
+        } finally {
+          btn.disabled = false;
+        }
       });
     }
   } catch (error) {
