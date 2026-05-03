@@ -2,7 +2,7 @@
 
 A social media web app built as a course assignment for Noroff. It interacts with Noroff Social API, allowing users to register, log in, interact with others and manage their own profile.
 
-## Live Demo [View the live application](https://69f67ecc2bb2c000083ec194--js2annavestmanmar25ft.netlify.app/)
+## Live Demo [View the live application](https://js2annavestmanmar25ft.netlify.app/)
 
 ## Features
 
